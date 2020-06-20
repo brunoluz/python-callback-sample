@@ -11,7 +11,7 @@ app = Flask(__name__)
 def hello():
     # Every time this method is called, a background task is started.
     thread = threading.Thread(target=subprocess_background_task, args=())
-    thread.daemon = False;
+    thread.daemon = False
     thread.start()
     return "Hello World!\n"
 
@@ -24,4 +24,4 @@ def subprocess_background_task():
 
 
 if __name__ == "__main__":
-    serve(app, host='0.0.0.0', port=80)
+    serve(app, host='0.0.0.0', port=5000)

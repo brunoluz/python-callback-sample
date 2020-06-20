@@ -1,0 +1,11 @@
+[Unit]
+Description=Python callback sample service
+
+[Service]
+ExecStart=/bin/bash /opt/apl/python-callback-sample/startup.sh
+# Disable Python's buffering of STDOUT and STDERR, so that output from the
+# service shows up immediately in systemd's logs
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
