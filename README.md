@@ -1,10 +1,9 @@
 # python-callback-sample
 Python + Flask + Waitress + Background task
 
-
-
-
-    Copy systemd/callbacksample.service to /lib/systemd/system/
-    Reload systemd using command: systemctl daemon-reload
-    Enable auto start using command: systemctl enable callbacksample.service
+## Install and execute
+1. Create a symbolic link from src/ to /opt/apl/python-callback-sample/ (ex. ln -s /opt/apl/python-callback-sample/ src/)
+2. Execute install_service.sh with admin privileges (ex. sudo systemd/install_service.sh)
+3. Start callbacksample service (ex. systemctl start callbacksample)
+4. Check if requests are ok. (curl localhost:5000)
 
