@@ -13,7 +13,7 @@ def hello():
     thread = threading.Thread(target=subprocess_background_task, args=())
     thread.daemon = False;
     thread.start()
-    return "Hello World!"
+    return "Hello World!\n"
 
 
 def subprocess_background_task():
