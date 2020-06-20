@@ -1,8 +1,8 @@
 from flask import Flask
 from waitress import serve
 import threading
-import time
 import datetime
+import subprocess
 
 app = Flask(__name__)
 
@@ -10,16 +10,14 @@ app = Flask(__name__)
 @app.route("/")
 def hello():
     # Every time this method is called, a background task is started.
-    thread = threading.Thread(target=background_task, args=())
+    thread = threading.Thread(target=subprocess_background_task, args=())
     thread.daemon = False;
     thread.start()
     return "Hello World!"
 
 
-def background_task():
-    # Below code is just for fun.
-    # The purpose here is to run a long running shell operation.
-    time.sleep(5)
+def subprocess_background_task():
+    subprocess.run(["sleep", "5"])
     now = datetime.datetime.now()
     print(now.strftime("%Y-%m-%d %H:%M:%S"))
     return
