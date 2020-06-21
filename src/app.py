@@ -3,23 +3,38 @@ from waitress import serve
 import threading
 import datetime
 import subprocess
+import asyncio
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/thread")
 def hello():
     # Every time this method is called, a background task is started.
-    thread = threading.Thread(target=subprocess_background_task, args=())
+    thread = threading.Thread(target=subprocess_background_thread, args=())
     thread.daemon = False
     thread.start()
-    return "Hello World!\n"
+    return "Thread created\n"
 
 
-def subprocess_background_task():
+def subprocess_background_thread():
+    # TODO: Use asyncio to work with subprocess: https://docs.python.org/pt-br/3.7/library/asyncio-subprocess.html
     subprocess.run(["sleep", "5"])
-    now = datetime.datetime.now()
-    print(now.strftime("%Y-%m-%d %H:%M:%S"))
+    print("THREAD EXECUTED : " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"))
+    return
+
+
+@app.route("/task")
+def task():
+    # TODO: This method is not running asynchronously.
+    # Need to investigate further.
+    asyncio.run(subprocess_background_task())
+    return "Task scheduled\n"
+
+
+async def subprocess_background_task():
+    subprocess.run(["sleep", "5"])
+    print("TASK EXECUTED : " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"))
     return
 
 
